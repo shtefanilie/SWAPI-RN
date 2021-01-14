@@ -2,12 +2,12 @@
 export type State = {
   loadingPeople: boolean,
   loadingFailed: boolean,
-  people: People,
+  people: Object,
 };
 
 export type PeopleAction = {
   type: string,
-  payload: People,
+  payload?: Object,
 };
 
 export type People = {

@@ -1,4 +1,4 @@
 // @flow
-import {State} from './types';
+import type {State} from './types';
 
-export const selectPeople = (state: State) => state.people;
+export const selectPeople = (state: State): State => state.people;
