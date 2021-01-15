@@ -1,4 +1,4 @@
 // @flow
-export const generateRandomId = (limit: Int): Int => {
+export const generateRandomId = (limit: number): number => {
   return Math.floor(Math.random() * limit + 1);
 };

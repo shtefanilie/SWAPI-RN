@@ -2,17 +2,18 @@
 // CONSTANTS
 import {
   FETCHING_PEOPLE,
-  FETCHING_PEOPLE_FAILED,
-  FETCHING_PEOPLE_SUCCESSFUL,
+  FETCH_PEOPLE_FAILED,
+  FETCHED_PEOPLE_SUCCESSFUL,
 } from './constants';
 
 // TYPES
-import type {State, PeopleAction} from './types';
+import type { State, PeopleAction } from './types';
 
 const defaultState: State = {
   loadingPeople: false,
   loadingFailed: false,
   people: {},
+  count: 0,
 };
 
 export const peopleReducer = (
@@ -21,11 +22,11 @@ export const peopleReducer = (
 ): State => {
   switch (action.type) {
     case FETCHING_PEOPLE:
-      return {...state, loadingPeople: true};
-    case FETCHING_PEOPLE_SUCCESSFUL:
-      return {...state, loadingPeople: false, people: action.payload};
-    case FETCHING_PEOPLE_FAILED:
-      return {...state, loadingPeople: false, loadingFailed: true};
+      return { ...state, loadingPeople: true };
+    case FETCHED_PEOPLE_SUCCESSFUL:
+      return { ...state, loadingPeople: false, people: action.payload };
+    case FETCH_PEOPLE_FAILED:
+      return { ...state, loadingPeople: false, loadingFailed: true };
     default:
       return state;
   }

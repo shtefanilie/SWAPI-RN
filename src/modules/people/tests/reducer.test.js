@@ -1,9 +1,6 @@
-import {
-  fetchingPeople,
-  fetchingPeopleSuccessful,
-} from '../../../actions/people';
-import {defaultState, peopleReducer} from '../reducer';
-import {mockPeople} from './mocks';
+import { fetchingPeople, fetchedPeople } from '../../../actions/people';
+import { defaultState, peopleReducer } from '../reducer';
+import { mockPeople } from './mocks';
 
 describe('peopleReducer', () => {
   describe('case FETCHING_PEOPLE', () => {
@@ -14,10 +11,10 @@ describe('peopleReducer', () => {
       expect(result.loadingPeople).toBe(true);
     });
   });
-  describe('case FETCHING_PEOPLE_SUCCESSFUL', () => {
+  describe('case FETCHED_PEOPLE_SUCCESSFUL', () => {
     const result = peopleReducer(
-      {...defaultState, loadingPeople: true, loadingFailed: false},
-      fetchingPeopleSuccessful(mockPeople),
+      { ...defaultState, loadingPeople: true, loadingFailed: false },
+      fetchedPeople(mockPeople),
     );
     const expectedState = {
       loadingFailed: false,
@@ -30,17 +27,17 @@ describe('peopleReducer', () => {
     });
 
     it('state does not change when state not stale', () => {
-      expect(
-        peopleReducer(expectedState, fetchingPeopleSuccessful(mockPeople)),
-      ).toEqual(expectedState);
+      expect(peopleReducer(expectedState, fetchedPeople(mockPeople))).toEqual(
+        expectedState,
+      );
     });
 
     it('state updates when stale', () => {
-      const newPeople = {...mockPeople, gender: 'female'};
-      const updatedExpectedState = {...expectedState, people: newPeople};
-      expect(
-        peopleReducer(expectedState, fetchingPeopleSuccessful(newPeople)),
-      ).toEqual(updatedExpectedState);
+      const newPeople = { ...mockPeople, gender: 'female' };
+      const updatedExpectedState = { ...expectedState, people: newPeople };
+      expect(peopleReducer(expectedState, fetchedPeople(newPeople))).toEqual(
+        updatedExpectedState,
+      );
     });
   });
 });

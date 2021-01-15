@@ -3,6 +3,7 @@ export type State = {
   loadingPeople: boolean,
   loadingFailed: boolean,
   people: Object,
+  count: number,
 };
 
 export type PeopleAction = {
@@ -19,4 +20,11 @@ export type People = {
   eyeColor: string,
   birthYear: string,
   gender: string,
+};
+
+export type PeopleCount = {
+  count: number,
+  next: string,
+  previous: string,
+  results: Array<People>,
 };
