@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import {
   SafeAreaView,
@@ -7,9 +9,46 @@ import {
   StatusBar,
   Button,
 } from 'react-native';
-import { Header, Colors } from 'react-native/Libraries/NewAppScreen';
 
-const HomeView: () => React$Node = () => {
+// REDUX
+import { selectLoadingPeople } from '../../modules/people/selectors';
+import { getPeople, getPeopleCount } from '../../actions/people';
+import {
+  selectPeople,
+  selectPeopleCount,
+} from '../../modules/people/selectors';
+import { connect } from 'react-redux';
+
+// COMPONENTS
+import { Character } from '../../components/character';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
+
+// TYPES
+import type { People, PeopleCount } from '../../modules/people/types';
+import { generateRandomId } from '../../modules/people/utils';
+
+const HomeViewComponent = ({
+  people,
+  peopleCount,
+  loadingPeople,
+  getPeopleCount,
+  getPeople,
+}: {
+  people: People,
+  peopleCount: number,
+  loadingPeople: boolean,
+  getPeopleCount: Function,
+  getPeople: Function,
+}): React$Node => {
+  const fetchCharacter = async () => {
+    if (!peopleCount) {
+      await getPeopleCount();
+    }
+
+    const personId = generateRandomId(peopleCount);
+    await getPeople(personId);
+  };
+
   return (
     <>
       <StatusBar barStyle="dark-content" />
@@ -18,15 +57,14 @@ const HomeView: () => React$Node = () => {
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}
         >
-          <Header />
+          {/* <Header /> */}
           <View style={styles.body}>
+            {people && <Character character={people} />}
             <Button
-              onPress={() => {
-                console.warn("merge butonu'");
-              }}
+              onPress={fetchCharacter}
               // TODO: add isLoading state
-              disabled={false}
-              title={'Get people'}
+              disabled={loadingPeople}
+              title={'Get random character'}
             />
           </View>
         </ScrollView>
@@ -39,39 +77,28 @@ const styles = StyleSheet.create({
   scrollView: {
     backgroundColor: Colors.lighter,
   },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
   body: {
     backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
+    flex: 1,
+    justifyContent: 'center',
+    alignContent: 'center',
+    borderColor: 'blue',
+    borderWidth: 1,
   },
 });
 
-export default HomeView;
+const mapsStateToProps = (state) => ({
+  people: selectPeople(state),
+  peopleCount: selectPeopleCount(state),
+  loadingPeople: selectLoadingPeople(state),
+});
+
+const mapDispatchToProps = {
+  getPeopleCount,
+  getPeople,
+};
+
+export const HomeView = (connect(
+  mapsStateToProps,
+  mapDispatchToProps,
+)(HomeViewComponent): React$Node);
