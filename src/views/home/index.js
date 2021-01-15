@@ -57,7 +57,6 @@ const HomeViewComponent = ({
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}
         >
-          {/* <Header /> */}
           <View style={styles.body}>
             {people && <Character character={people} />}
             <Button

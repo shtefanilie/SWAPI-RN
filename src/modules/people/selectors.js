@@ -1,9 +1,11 @@
 // @flow
-import type { State, People } from './types';
+import type { People } from './types';
+import type { GlobalState } from '../../types';
 
-export const selectPeople = (state: State): People => state.people;
+export const selectPeople = (state: GlobalState): People => state.people.people;
 
-export const selectPeopleCount = (state: State): number => state.count;
+export const selectPeopleCount = (state: GlobalState): number =>
+  state.people.count;
 
-export const selectLoadingPeople = (state: State): boolean =>
-  state.loadingPeople;
+export const selectLoadingPeople = (state: GlobalState): boolean =>
+  state.people.loadingPeople;

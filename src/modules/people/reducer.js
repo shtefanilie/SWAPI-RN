@@ -10,19 +10,19 @@ import {
 } from './constants';
 
 // TYPES
-import type { State, PeopleAction } from './types';
+import type { PeopleState, PeopleAction } from './types';
 
-const defaultState: State = {
+const defaultState: PeopleState = {
   loadingPeople: false,
   loadingFailed: false,
-  people: {},
+  people: null,
   count: 0,
 };
 
 export const peopleReducer = (
-  state: State = defaultState,
+  state: PeopleState = defaultState,
   action: PeopleAction,
-): State => {
+): PeopleState => {
   switch (action.type) {
     case FETCHING_PEOPLE:
       return { ...state, loadingPeople: true };

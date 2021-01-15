@@ -1,8 +1,8 @@
 // @flow
-export type State = {
+export type PeopleState = {
   loadingPeople: boolean,
   loadingFailed: boolean,
-  people: Object,
+  people: Object | null,
   count: number,
 };
 
