@@ -1,4 +1,5 @@
 // @flow
+import swapi from '../api';
 import {
   FETCHING_PEOPLE,
   FETCH_PEOPLE_FAILED,
@@ -40,3 +41,31 @@ export const fetchPeopleCountFailed = (payload: Error): PeopleAction => ({
   type: FETCH_PEOPLE_COUNT_FAILED,
   payload,
 });
+
+export const getPeople = (personId: number): Function => async (
+  dispatch: Function,
+): Promise<People> => {
+  try {
+    dispatch(fetchingPeople());
+    const resp = await swapi.get(`/people/${personId}`);
+    dispatch(fetchedPeople(resp));
+    return resp;
+  } catch (e) {
+    dispatch(fetchPeopleFailed(e));
+    throw e;
+  }
+};
+
+export const getPeopleCount = (): Function => async (
+  dispatch: Function,
+): Promise<PeopleCount> => {
+  try {
+    dispatch(fetchingPeopleCount());
+    const resp = await swapi.get(`/people`);
+    dispatch(fetchedPeopleCount(resp));
+    return resp;
+  } catch (e) {
+    dispatch(fetchPeopleCountFailed(e));
+    throw e;
+  }
+};

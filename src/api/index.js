@@ -5,6 +5,4 @@ export const swapi = axios.create({
   baseURL: SWAPI_URL,
 });
 
-export const api = (params, config) => swapi.post('', params, config);
-
-export default api;
+export default swapi;
