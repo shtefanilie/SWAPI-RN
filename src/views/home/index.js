@@ -11,7 +11,9 @@ import {
 } from 'react-native';
 
 // REDUX
-import { selectLoadingPeople } from '../../modules/people/selectors';
+import {
+  selectLoadingPeople,
+} from '../../modules/people/selectors';
 import { getPeople, getPeopleCount } from '../../actions/people';
 import {
   selectPeople,
@@ -24,7 +26,7 @@ import { Character } from '../../components/character';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 // TYPES
-import type { People, PeopleCount } from '../../modules/people/types';
+import type { People } from '../../modules/people/types';
 import { generateRandomId } from '../../modules/people/utils';
 
 const HomeViewComponent = ({
@@ -36,6 +38,7 @@ const HomeViewComponent = ({
 }: {
   people: People,
   peopleCount: number,
+  peopleByEyeColor: Object,
   loadingPeople: boolean,
   getPeopleCount: Function,
   getPeople: Function,
@@ -61,7 +64,6 @@ const HomeViewComponent = ({
             {people && <Character character={people} />}
             <Button
               onPress={fetchCharacter}
-              // TODO: add isLoading state
               disabled={loadingPeople}
               title={'Get random character'}
             />

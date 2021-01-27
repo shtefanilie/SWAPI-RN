@@ -7,9 +7,9 @@ import type { People } from '../../modules/people/types';
 
 export const Character = ({ character }: { character: People }): React$Node => {
   const {
-    name,
-    height,
-    mass,
+    name = '',
+    height = '',
+    mass = '',
     // skinColor,
     // hairColor,
     // eyeColor,

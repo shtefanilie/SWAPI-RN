@@ -1,14 +1,21 @@
 // @flow
+import type { SwapiResponse } from '../../types';
+
 export type PeopleState = {
   loadingPeople: boolean,
   loadingFailed: boolean,
-  people: Object | null,
+  people: ?People,
   count: number,
 };
 
 export type PeopleAction = {
   type: string,
-  payload?: Object,
+  payload: SwapiResponse,
+};
+
+export type PeopleError = {
+  type: string,
+  payload: Error,
 };
 
 export type People = {

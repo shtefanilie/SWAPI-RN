@@ -63,8 +63,6 @@ deprecated-utility=error
 [strict]
 deprecated-type
 nonstrict-import
-sketchy-null
-unclear-type
 unsafe-getters-setters
 untyped-import
 untyped-type-import

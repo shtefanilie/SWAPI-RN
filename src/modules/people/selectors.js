@@ -9,3 +9,5 @@ export const selectPeopleCount = (state: GlobalState): number =>
 
 export const selectLoadingPeople = (state: GlobalState): boolean =>
   state.people.loadingPeople;
+
+export const selectPeopleByEyeColor = (state) => state.people.peopleByEyeColor;
